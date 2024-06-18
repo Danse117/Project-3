@@ -1,0 +1,38 @@
+Prior: P(L)
+Labels:
+    Parents occupation (O): {usual, pretentious, great_pret}    
+    Childs Nursery (N): {proper, less_proper, improper, critical, very_crit}
+    Family form (F): {complete, completed, incomplete, foster}
+    Number of children (C): {1, 2, 3, more}
+    Housing (H): {convenient, less_conv, critical}
+    Finance (I): {convenient, inconv}
+    Social (S): {non-prob, slightly_prob, problematic}
+    Health (A): {recommended, priority, not_recom}
+
+Make 3 functions:
+    getPriorCount
+    getFeatureCPT
+    getPredictions
+
+getPriorCount() * Count the labels*
+    - Iterate through training file
+    - Count occurences of each label (recommend, not_recom)
+    - Calculate prior probabilities, (label count) / total sample count
+    - return the count's as priorCountsList
+
+getFeatureCPT() * Create CPT *
+    - For each feature
+        - Iterate through training data
+        - For each label, count the occurences of each feature given the label
+        - Calcuate conditional probabilites as the count divided by the total count of the label value
+        - Store conditonal probabilites in feature_cpt
+
+getPredictions() * Make predictions *
+    - Iterate through val_data
+        - For each sample
+            - Calcualte the probability of each label using the Formulation
+            - Predict the label with maximum probability
+            - Add predicted label to predictions list
+Formulation: 
+max( P(L|O,N,F,C,H,I,S,A)) =
+ max(P(O|L) P(N|L) P(F|L) P(C|L) P(H|L) P(I|L) P(S|L) P(A|L) P(L)) 
